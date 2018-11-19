@@ -1,37 +1,64 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import {getProducts} from '../../store/actions/bookaction';
-import BookList from '../Book/BookList';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getProducts } from "../../store/actions/bookaction";
+import BookList from "../Book/BookList";
+import Cart from "../Cart/Cart";
 
- class Dashboard extends Component {
+class Dashboard extends Component {
+  state = {
+    cart: []
+  };
 
-   componentDidMount(){
+  componentDidMount() {
+    this.props.getProducts();
+  }
+  addToCart = book => {
+    let newCart = [...this.state.cart, book];
 
-       this.props.getProducts();
-       
-   }
- 
+    this.setState({
+      cart: newCart
+    });
+
+   
+  };
+
   render() {
-    
-    const {books}=this.props
-return (
+    const { books } = this.props;
 
-  <div className="container book-list"><BookList  books={books}  /></div>
+    return (
+  
+
+      <div className="dashboard">
+        <div className="book-list">
+       <BookList books={books} addToCart={this.addToCart} />
+        </div>
+
+        <div className="cart">
+          {this.state.cart.map(cart => {
+            return <ul className="collection"><Cart book={cart} /></ul>;
+          })}
+        </div>
+      </div>
+      
     
       
-    )
+    );
   }
 }
-const mapStateToProps=(state)=>{
+const mapStateToProps = state => {
+  return {
+    books: state.bookResponse.books,
+ 
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    getProducts: () => dispatch(getProducts())
 
-    return{
-        books:state.bookResponse.books
-    }
-}
-const mapDispatchToProps=(dispatch)=>{
-  return{
-    getProducts:()=>dispatch(getProducts())
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

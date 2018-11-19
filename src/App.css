@@ -1,36 +1,42 @@
-.book-list{
-  width:100%;
- display:flex;
-
-}
-.card-img-top{
-  height:50%;
-  width:70%;
-  margin:2vh 5vh 2vh 3vh;
-  border:1px solid;
-}
-.book{
-
-width:30%;
-float:left;
-margin:5px;
-}
-.book-detail{
-
-  width:100%;
+.dashboard {
+  margin:10px;
  
-  }
-
-@media (max-width: 1200px){
-
-  .book{
-    width:40%;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-template-areas: "books cart";
+  grid-column-gap: 10px;
 }
+.book-list {
+  border: 1px solid;
+  background: #eee;
+  grid: books;
+  padding: 10px;
 }
-@media (max-width: 780px){
+.cart {
+  padding: 10px;
+  grid: cart;
+  border: 1px solid;
+  background: #eee;
+}
 
-  .book{
-    width:100%;
+.book {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
 }
+.collection-item {
+  background:black !important;
+  height:200px;
+  color:white !important;
 }
 
+.card {
+  padding: 10px;
+  border: 1px solid transparent;
+}
+.card-content{
+  padding:0 !important;
+  display:flex;
+  flex-direction:column;
+  
+}
